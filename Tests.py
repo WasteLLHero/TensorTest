@@ -39,22 +39,22 @@ def test_second(browser):
    assert main_page.get_url() != home_region_url, 'Not different url'
    
 def test_third(browser):
-   main_page = SearchHelper(browser)
-   main_page.go_to_site()
+   main_page = SearchHelper(browser) 
+   main_page.go_to_site() 
    download_sbis = main_page.find_download_sbis()
-   browser.execute_script("arguments[0].click();",download_sbis)
+   browser.execute_script("arguments[0].click();",download_sbis) # <--- Ищем вкладку скачать в footer
    time.sleep(2)
    
-   sbis_plagin = main_page.find_download_plagin()
+   sbis_plagin = main_page.find_download_plagin() # <--- Переходим в нужную вкладку
    sbis_plagin[1].click()
    
-   find_download_link, download_text = main_page.find_download_block()
-   find_download_link.click()
+   find_download_link, download_text = main_page.find_download_block() 
+   find_download_link.click() # <--- Скачиваем файл
    time.sleep(5)
-   size = re.findall(r"[-+]?\d*\.\d+|\d+", download_text.text)
-   exe_files = glob.glob(f'{os.getcwd()}/*.exe')
-   file_size = round(os.path.getsize(exe_files[-1]) / 1048576, 2)
+   size = re.findall(r"[-+]?\d*\.\d+|\d+", download_text.text) # <--- Находим размер
+   exe_files = glob.glob(f'{os.getcwd()}/*.exe') 
+   file_size = round(os.path.getsize(exe_files[-1]) / 1048576, 2) # <--- Находим размер скаченного файла
       
-   assert file_size == float(size[-1]), 'Different size'
+   assert file_size == float(size[-1]), 'Different size' 
       
    os.remove(exe_files[-1])
